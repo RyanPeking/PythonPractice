@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+div{
+    margin: 0 auto;
+}
+
+.daohang{
+    width: 80%;
+    height: 200px;
+    background-color: khaki;
+}
+
+.middle{
+    width: 80%;
+    height: 1000px;
+    background-color: palegreen;
+
+}
+
+.txt{
+    width:70%;
+    height: 980px;
+    background-color: plum;
+    float: left;
+}
+
+.r_lan{
+    width: 29%;
+    height: 980px;
+    background-color: greenyellow;
+    float: left;
+}
+
+.bt{
+    width: 80%;
+    height: 150px;
+    background-color: cyan;
+}
+
