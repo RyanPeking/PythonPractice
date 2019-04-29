@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹球广告</title>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #qiu{
+            width: 200px;
+            height: 200px;
+            background-color: yellowgreen;
+            border-radius: 50%;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="qiu">
+        <span id="x">x</span>
+    </div>
+
+    <script type="text/javascript">
+        var qiu = document.getElementById('qiu');
+        var stepl = 5;
+        var stept = 5;
+        var into;
+
+        function info() {
+            into = setInterval(function () {
+                // 获取左边和顶部偏移量
+                var l = qiu.offsetLeft;
+                var t = qiu.offsetTop;
+                // 设置新的偏移量
+                var nl = l+stepl;
+                var nt = t+stept;
+                // 获取浏览器可视区域宽高
+                var w = document.documentElement.clientWidth;
+                var h = document.documentElement.clientHeight;
+                // 获取元素自身宽高
+                var dw = qiu.offsetWidth;
+                var dh = qiu.offsetHeight;
+                // 获取最大移动范围
+                var maxw = w - dw;
+                var maxh = w - dh;
+                // 判断元素左右移动范围，如果超过最大值或最小值取反移动
+                if(nl >= maxw || nl <= 0){
+                    stepl *= -1;
+
+                }
+                // 判断元素上下移动范围如果超过最大值或最小值取反移动
+                if(nt >= maxh || nt <= 0){
+                    stept *= -1;
+                }
+                // 写入层叠样式
+                qiu.style.left = nl + 'px';
+                qiu.style.top = nt + 'px';
+            },100)
+        }
+
+        info();
+        // 鼠标移入停止
+        qiu.onmouseover = function (ev) {
+            clearInterval(into);
+        };
+        qiu.onmouseout = function (ev) {
+          info()
+        };
+
+        var x = document.getElementById('x');
+        x.onmousedown = function (ev) {
+            qiu.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

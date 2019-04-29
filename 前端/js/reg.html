@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RegExp</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var str = "asjfkdxxjkfjaksjfxxa25xx6sdj";
+        // 定义正则表达式
+        // 方式一
+        // var re = new RegExp("a");//匹配普通字符
+        // 方式二
+        // var reg = /w/;
+        // 指定查找的范围
+        // var re = /[0-9]/;
+        var re = /[c-z]/;
+        var req = re.exec(str);
+
+        console.log(req)
+    </script>
+</body>
+</html>
