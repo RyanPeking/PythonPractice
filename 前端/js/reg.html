@@ -6,7 +6,7 @@
 </head>
 <body>
     <script type="text/javascript">
-        var str = "asjfkdxxjkfjaksjfxxa25xx6sdj";
+        var str = " \r\n\tae86hello asjfkdxxjkfjaksjfxxa25xx6sdj";
         // 定义正则表达式
         // 方式一
         // var re = new RegExp("a");//匹配普通字符
@@ -14,7 +14,22 @@
         // var reg = /w/;
         // 指定查找的范围
         // var re = /[0-9]/;
-        var re = /[c-z]/;
+        // var re = /[c-z]/;
+
+        // 元字符（拥有特殊含义的字符）
+        // var re = /./;    //匹配除换行符和结束符以外的任意字符
+        // var re = /\w/;   //匹配单个数字字母下划线字符
+        // var re = /\W/;   //匹配单个非数字字母下划线字符
+        // var re = /\d/;  //匹配单个数字
+        // var re = /\D/;  //匹配单个非数字
+        // var re = /\s/;  //匹配空格\r\n\t
+        // var re = /\S/;  //匹配非空格\r\n\t
+
+        //量词
+        // var re = /\s{3}/;    //匹配指定数量个字符
+        // var re = /\w+/;     //匹配一个或多个
+        var re = /dx*/;     //匹配0个或多个
+
         var req = re.exec(str);
 
         console.log(req)
