@@ -24,11 +24,10 @@ html = rsp.text
 
 html = etree.HTML(html)
 rst = html.xpath('//li[@class="item typs_video"]')#contains(@id, "qiushi_tag")
-i = 0
+
 for r in rst:
 
     item = {}
-    print(type(r))
-    content = r.xpath('//a[@class="recmd-content"]')[i].text
-    i += 1
+    # print(type(r))
+    content = r.xpath('.//a[@class="recmd-content"]')[0].text
     print(content)
