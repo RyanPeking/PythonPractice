@@ -10,7 +10,7 @@ class MeijuSpider(scrapy.Spider):
 
     def parse(self, response):
         movies = response.xpath('//ul[@class="top-list  fn-clear"]/li')
-
+        print('meiju')
         for movie in movies:
             item = MeijuItem()
             print(type(movie.xpath('./h5/a/@title')))
