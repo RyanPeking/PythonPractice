@@ -13,6 +13,8 @@ class MeijuSpider(scrapy.Spider):
 
         for movie in movies:
             item = MeijuItem()
+            print(type(movie.xpath('./h5/a/@title')))
+            print(type(movie))
             item['name'] = movie.xpath('./h5/a/@title').extract()[0]
             item['href'] = movie.xpath('./h5/a/@href').extract()[0]
 
