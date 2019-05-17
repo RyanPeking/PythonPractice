@@ -6,11 +6,23 @@
 div{
     margin: 0 auto;
 }
+ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
 
 .daohang{
     width: 80%;
-    height: 200px;
+    height: 70px;
     background-color: khaki;
+}
+.top-menu li{
+    float: left;
+    lighting-height: 70px;
+    margin: 0 30px;
+    font-size: 28px;
 }
 
 .middle{
@@ -25,13 +37,43 @@ div{
     height: 980px;
     background-color: plum;
     float: left;
-}
+    margin:8px 3px;
 
+}
+.txt ul li span{
+    font-weight:bold ;
+    color: blue;
+
+}
+.txt ul li{
+    display: block;
+    margin: 20px 10px;
+}
 .r_lan{
     width: 29%;
     height: 980px;
     background-color: greenyellow;
     float: left;
+    margin:8px 0px;
+}
+
+.user_name{
+    width: 90%;
+    height: 320px;
+    margin: 5px;
+    background-color: slateblue;
+}
+.text-c{
+    width: 90%;
+    height: 320px;
+    margin: 5px;
+    background-color: seagreen;
+}
+.top{
+    width: 90%;
+    height: 320px;
+    margin: 5px;
+    background-color: pink;
 }
 
 .bt{
