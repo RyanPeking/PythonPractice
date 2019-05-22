@@ -44,3 +44,13 @@ class Sql():
         except Exception as e:
             print("插入失败，", e)
             db.rollback()
+
+
+    # 读取city表中的uid号
+    @classmethod
+    def read_city(cls):
+        sql = 'SELECT uid FROM CITY WHERE ID > 0'
+        cursor.execute(sql)
+        db.commit()
+        results = cursor.fetchall()
+        return results
