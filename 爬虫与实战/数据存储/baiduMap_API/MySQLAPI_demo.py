@@ -41,7 +41,45 @@ class MysqlDemo(object):
     # 插入一条记录数据  tableName   data(dict)
     def insert(self, table_name, data):
         if len(data.keys()) == 1:
-            sql = 'insert into {}({}) VALUES '.format(table_name, data.keys[0])
+            sql = 'insert into {}({}) VALUES '.format(table_name, data.keys()[0]).replace("'", '')+'("{}")'.format(data.values()[0])
+        else:
+            sql = 'insert into {}({}) VALUES'.format(table_name, tuple(data.keys())).replace("'", '')+str('("{}")'.format(tuple(data.values())))
+
+        try:
+            self.cursor.execute(sql)
+            self.conn.commit()
+            # 返回插入后的id
+            return self.cursor.lastrowid
+        except Exception as e:
+            self.conn.rollback()
+            print(e)
+            return False
+
+    # 执行一条sql语句
+    def query(self, sql):
+        try:
+            self.cursor.execute(sql)
+            self.conn.commit()
+            return int(self.cursor.lastrowid)
+        except Exception as e:
+            print(e)
+            self.conn.rollback()
+            return False
+
+    # 删除一条记录    tablename   restrication_str
+    def delete(self):
+        sql = ''
+        pass
+
+    # 删除表
+    def delete_tab(self, table_name):
+        pass
+
+    # 格式化表  trnacete
+    def format_tab(self, table_name):
+        sql = 'trnacate table {}'.format(table_name)
+        pass
+
 
     # 更新记录 tableName    data(字典)    restrication_str
     def update(self, table_name, data, restrication_str):
@@ -59,16 +97,17 @@ class MysqlDemo(object):
             self.conn.rollback()
             print(e)
             return False
-# dicts = {
-#     'name':'Tuling',
-#     'age':18,
-#     'sex':'M'
-# }
-#
-# data_str = ''
-# for item in dicts.items():
-#     data_str += '{}="{}",'.format(item[0], item[1])
-#     print(data_str)
-#     values = data_str[:-1]
-#     print(values)
+dicts = {
+    'name':'Tuling',
+    'age':18,
+    'sex':'M'
+}
+
+data_str = ''
+for item in dicts.items():
+    data_str += '{}="{}",'.format(item[0], item[1])
+    print(data_str)
+    values = data_str[:-1]
+    print(values)
+print(dicts.keys()[0])
 
