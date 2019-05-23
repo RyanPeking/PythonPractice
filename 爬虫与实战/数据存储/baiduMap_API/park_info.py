@@ -25,4 +25,52 @@ def get_json(uid):
 
 # 从数据库中获取uid号
 results = Sql.read_city()
-print(results)
+# print(results)
+
+for item in results:
+    uid = item[0]
+    decode_json = get_json(uid)
+    # print(decode_json)
+    infos = decode_json['result']
+
+    try:
+        # name
+        uid = infos['uid']
+    except:
+        uid = None
+
+    try:
+        street_id = infos['street_id']
+    except:
+        street_id = None
+
+    # 获取想要的信息
+    try:
+        # name
+        name = infos['name']
+    except:
+        name = None
+
+    try:
+        address = infos['address']
+    except:
+        address = None
+
+    try:
+        shop_hours = infos['detail_info']['shop_hours']
+    except:
+        shop_hours = None
+
+    try:
+        detail_url = infos['detail_info']['detail_url']
+    except:
+        detail_url = None
+
+
+    try:
+        content_tag = infos['detail_info']['content_tag']
+    except:
+        content_tag = None
+
+    # print(uid, street_id, name, address, shop_hours, detail_url, content_tag)
+    Sql.insert_park(uid, street_id, name, address, shop_hours, detail_url, content_tag)
