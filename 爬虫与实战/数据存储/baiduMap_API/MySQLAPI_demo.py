@@ -14,8 +14,8 @@ import pymysql
 
 class MysqlDemo(object):
     # 设置数据库的连接参数，默认编码类型为utf-8，参数为字符串
-    def __init__(self, host, username, password, dbname, port, charset):
-        self.conn = pymysql.connect(host, username, password, dbname, port=3306, charset='utf-8')
+    def __init__(self, host, username, password, dbname):
+        self.conn = pymysql.connect(host, username, password, dbname, port=3306, charset='utf8')
         self.cursor = self.conn.cursor()
 
     # 获取数据 此处传值为sql语句
@@ -41,9 +41,11 @@ class MysqlDemo(object):
     # 插入一条记录数据  tableName   data(dict)
     def insert(self, table_name, data):
         if len(data.keys()) == 1:
-            sql = 'insert into {}({}) VALUES '.format(table_name, data.keys()[0]).replace("'", '')+'("{}")'.format(data.values()[0])
+
+            sql = 'insert into {}{} VALUES '.format(table_name, data.keys()[0]).replace("'", '')+'("{}")'.format(data.values()[0])
         else:
-            sql = 'insert into {}({}) VALUES'.format(table_name, tuple(data.keys())).replace("'", '')+str('("{}")'.format(tuple(data.values())))
+            sql = 'insert into {}{} VALUES'.format(table_name, tuple(data.keys())).replace("'", '')+str('{}'.format(tuple(data.values())))
+            print(sql)
 
         try:
             self.cursor.execute(sql)
@@ -97,17 +99,17 @@ class MysqlDemo(object):
             self.conn.rollback()
             print(e)
             return False
-dicts = {
-    'name':'Tuling',
-    'age':18,
-    'sex':'M'
-}
-
-data_str = ''
-for item in dicts.items():
-    data_str += '{}="{}",'.format(item[0], item[1])
-    print(data_str)
-    values = data_str[:-1]
-    print(values)
-print(dicts.keys()[0])
+# dicts = {
+#     'name':'Tuling',
+#     'age':18,
+#     'sex':'M'
+# }
+#
+# data_str = ''
+# for item in dicts.items():
+#     data_str += '{}="{}",'.format(item[0], item[1])
+#     # print(data_str)
+#     values = data_str[:-1]
+#     # print(values)
+# print(dicts.keys()[0])
 

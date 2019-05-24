@@ -6,13 +6,15 @@ data = {
     'FIRST_NAME':'Tuling',
     'LAST_NAME':'Xueyuan',
     'AGE': '18',
-    'SEX':'MAN',
+    'SEX':'M',
     'INCOME':'100000'
 }
 
 mysql.insert('BJTLXY', data)
 
-sql = 'select * from BJTLXY WHERE FIRST_NAME=''Tuling'
+sql = 'select * from BJTLXY WHERE FIRST_NAME="Tuling"'
 res = mysql.get_one(sql)
+print(res)
 
 res = mysql.get_all('select * from BJTLXY')
+print(res)
