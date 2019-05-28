@@ -48,9 +48,9 @@ def search():
         submit.click()
 
         # 查找笔记本按销量
-        button1 = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#J_selector > div:nth-child(2) > div > div.sl-value > sl-v-list > ul > li:nth-child(1) > a")))
+        button1 = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#J_selector > div:nth-child(2) > div > div.sl-value > div.sl-v-list > ul > li:nth-child(1) > a")))
         button1.click()
-        button2 = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#J_filter > div.f-line top > div.f-sort > a:nth-child(2) > span")))
+        button2 = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#J_filter > div.f-line.top > div.f-sort > a:nth-child(2)")))
         button2.click()
 
         # 获取总页数
@@ -63,20 +63,78 @@ def search():
 
 # 获取下一页
 def next_page(page_num):
-    # 滑动网页到底部，加载所有商品信息
-    browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(10)
-    html = browser.page_source
-    parse_html(html)
-    while page_num == 101:
-        exit()
-    # 查找下一页按钮，并点击
-    button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#J_bottomPage > span.p-num > a.pn-next > em")))
-    button.click()
+    try:
+        # 滑动网页到底部，加载所有商品信息
+        browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(10)
+        html = browser.page_source
+        parse_html(html)
+        while page_num == 101:
+            exit()
+        # 查找下一页按钮，并点击
+        button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#J_bottomPage > span.p-num > a.pn-next > em")))
+        button.click()
+        wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "#J_goodsList > ul > li:nth-child(60)")))
+
+        # 判断翻页是否成功
+        wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, "#J_bottomPage > span.p-num > a.curr"), str(page_num)))
+    except TimeoutException:
+        return next_page(page_num)
 
 
 def parse_html(html):
+    '''解析网页数据'''
+    data = {}
+    soup = BeautifulSoup(html, 'lxml')
+    goods_info = soup.select('#J_goodsList ul li')
+    # 查看当前商品数量，是否加载完成
+    quantity = str(len(goods_info))
+    # print(quantity)
+    for info in goods_info:
+        # 获取商品标题信息
+        title = info.select(".p-name.p-name-type-2 a em")[0].text.strip()
+        # print(title)
+        data["_id"] = title
+
+        # 获取商品价格
+        price = info.select(".p-price i")[0].text.strip()
+        price = int(float(price))
+        data['price'] = price
+
+        comment = info.select(".p-commit strong a")[0].text.strip()
+        if "万" in comment:
+            comment.split('万')
+            comment = int(float(comment[0])*10000)
+        else:
+            comment = int(float(comment.replace("+", "")))
+        data['comment'] = comment
+
+        # print(price, comment)
+
+        # 获取店铺属性
+        shop_property = info.select(".p-icons i")
+        if len(shop_property) >= 1:
+            mess = shop_property[0].text.strip()
+            if mess == "自营":
+                data['shop_property'] = "自营"
+            else:
+                data['shop_property'] = "非自营"
+        else:
+            data['shop_property'] = "非自营"
+
+        to_mongodb(data)
+        print(data)
+        print("...........................................")
+
+def main():
+    # print(type(search()))
+    total = int(search())
+    for i in range(2, total+2):
+        time.sleep(20)
+        print("第", i-1, "页：")
+        next_page(i)
+
 
 
 if __name__ == '__main__':
-    search()
+    main()
