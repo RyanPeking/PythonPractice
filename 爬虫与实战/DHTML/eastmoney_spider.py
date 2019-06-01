@@ -65,7 +65,7 @@ def parse_table():
     return df_table
 
 def write_to_file(df_table, category):
-    file_path = '/home/tlxy/practice/爬虫与实战/DHTML/img'
+    file_path = '/home/tlxy/tulingxueyuan/爬虫与实战/DHTML/img'
     if not os.path.exists(file_path):
         os.mkdir(file_path)
     os.chdir(file_path)
