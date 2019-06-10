@@ -12,3 +12,15 @@ class LianjiaspiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
+
+class LianjiaSpiderItem(scrapy.Item):
+    house_title = scrapy.Field()
+    house_href = scrapy.Field()
+    house_name = scrapy.Field()
+    house_num = scrapy.Field()
+    house_price = scrapy.Field()
+    house_style = scrapy.Field()
+    house_room = scrapy.Field()
+    house_size = scrapy.Field()
+    house_toward = scrapy.Field()
+    house_imgdir = scrapy.Field()

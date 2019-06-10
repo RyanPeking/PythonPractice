@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for LianJiaSpider project
+# Scrapy settings for Baidu project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,19 +9,20 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'LianJiaSpider'
+BOT_NAME = 'Baidu'  # scrapybot
 
-SPIDER_MODULES = ['LianJiaSpider.spiders']
-NEWSPIDER_MODULE = 'LianJiaSpider.spiders'
+SPIDER_MODULES = ['Baidu.spiders']
+NEWSPIDER_MODULE = 'Baidu.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'LianJiaSpider (+http://www.yourdomain.com)'
+#USER_AGENT = 'Baidu (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
+# 最大的download并发请求值
 #CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
@@ -47,13 +48,13 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'LianJiaSpider.middlewares.LianjiaspiderSpiderMiddleware': 543,
+#    'Baidu.middlewares.BaiduSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'LianJiaSpider.middlewares.LianjiaspiderDownloaderMiddleware': 543,
+#    'Baidu.middlewares.BaiduDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -64,9 +65,9 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-   'LianJiaSpider.mysqlPipelines.pipelines.LianjiaPipelines': 300,
-}
+#ITEM_PIPELINES = {
+#    'Baidu.pipelines.BaiduPipeline': 300,
+#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -88,26 +89,3 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-
-# 日志操作
-LOG_FILE = 'syS.log'
-LOG_LEVEL = 'ERROR'
-LOG_ENABLED = True
-
-# 设置agent
-MY_USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.119 Safari/537.36'
-
-# 构建headers头部信息
-headers = {
-    'User-Agent': MY_USER_AGENT,
-    'Accept':'*/*',
-    'Accept-Language':'zh-CN,zh;q=0.9',
-    'Connection':'keep-alive'
-}
-
-# Mysql相关配置
-MYSQL_HOST = '127.0.0.1'
-MYSQL_USER = 'root'
-MYSQL_PASSWORD = '123456'
-MYSQL_PORT = 3306
-MYSQL_DB = 'db_lianjia'
