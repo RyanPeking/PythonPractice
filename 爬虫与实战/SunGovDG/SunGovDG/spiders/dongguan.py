@@ -26,6 +26,13 @@ class DongguanSpider(CrawlSpider):
         Rule(contentlink, callback='parse_item')
     ]
 
+    def deal_links(self, links):
+        for link in links:
+            link.url = link.url.replace("?", "&").replace('Type&', 'Type?')
+            print(link.url)
+
+        return links
+
     def parse_item(self, response):
         # item = {}
         # #item['domain_id'] = response.xpath('//input[@id="sid"]/@value').get()
@@ -33,9 +40,9 @@ class DongguanSpider(CrawlSpider):
         # #item['description'] = response.xpath('//div[@id="description"]').get()
         # return item
         # print(response.url)
-        title = response.xpath('//div[@class="wzy1"]//span[@class="niae2_top"]/text()').extract()[0].replace("提问：", '').replace(r'\xa0\xa0\xa0\xa0', '')
-        number = response.xpath('//div[@class="wzy1"]//span[2]/text()').extract()[0].replace("编号:", '').replace(r'\xa0\xa', '')
-        content = response.xpath('//td[@class="txt16_3"]/text()').extract()[0]
+        title = response.xpath('//div[@class="wzy1"]//span[@class="niae2_top"]/text()').extract()[0].replace("提问：", '').strip()
+        number = response.xpath('//div[@class="wzy1"]//span[2]/text()').extract()[0].replace("编号:", '').strip()
+        content = response.xpath('//td[@class="txt16_3"]/text()').extract()[0].strip()
 
         # print(title, number, content)
 
